@@ -131,8 +131,8 @@ function parseDocuments($) {
     ...doc,
     // the saveBills function needs a date field
     // even if it is a little artificial here (these are not real bills)
-    currency: '€',
-    vendor: 'template',
+    currency: 'EUR',
+    vendor: 'nespresso',
     filename: doc.number + '.pdf',
     metadata: {
       // it can be interesting that we add the date of import. This is not mandatory but may be
