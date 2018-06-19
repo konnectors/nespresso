@@ -13,7 +13,7 @@ const {
 const request = requestFactory({
   // the debug mode shows all the details about http request and responses. Very usefull for
   // debugging but very verbose. That is why it is commented out by default
-  debug: true,
+  // debug: true,
   // activates [cheerio](https://cheerio.js.org/) parsing on each page
   cheerio: false,
   // If cheerio is activated do not forget to deactivate json parsing (which is activated by
@@ -69,21 +69,25 @@ async function start(fields) {
 // this shows authentication using the [signin function](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_signin)
 // even if this in another domain here, but it works as an example
 async function authenticate(username, password) {
-  return request({
-    url: `https://www.nespresso.com/mosaic/fr/en/ecapi/1/authentication/login`,
-    method: 'POST',
-    form: {
-      j_username: username,
-      j_password: password,
-      _spring_security_remember_me: 'false'
-    },
-    resolveWithFullResponse: true
-  }).then(resp => {
-    if (resp.statusCode === 401) {
+  try {
+    const body = await request({
+      url: `https://www.nespresso.com/mosaic/fr/en/ecapi/1/authentication/login`,
+      method: 'POST',
+      form: {
+        j_username: username,
+        j_password: password,
+        _spring_security_remember_me: 'false'
+      }
+    })
+    return body
+  } catch (err) {
+    if (err.statusCode === 401) {
       throw new Error(errors.LOGIN_FAILED)
+    } else {
+      log('error', err.message)
+      throw new Error(errors.VENDOR_DOWN)
     }
-    return resp.body
-  })
+  }
 }
 
 // The goal of this function is to parse a html page wrapped by a cheerio instance
