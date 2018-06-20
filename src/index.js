@@ -55,6 +55,12 @@ async function start(fields) {
       'Généré par le collecteur Cozy',
       doc.fileurl
     )
+
+    // Clean the html
+    $doc(
+      '.my-order-delivery, #einvoice-summary, #confirm-reorder-dialog, .my-order-ordering-origin, caption'
+    ).remove()
+
     htmlToPDF($doc, pdf, $doc('.my-order-details'), { baseURL: doc.fileurl })
     doc.filestream = pdf
     doc.filestream.end()
@@ -68,7 +74,8 @@ async function start(fields) {
     // this is a bank identifier which will be used to link bills to bank operations. These
     // identifiers should be at least a word found in the title of a bank operation related to this
     // bill. It is not case sensitive.
-    identifiers: ['nespresso']
+    identifiers: ['nespresso'],
+    contentType: 'application/pdf'
   })
 }
 
