@@ -82,6 +82,9 @@ async function start(fields) {
 // this shows authentication using the [signin function](https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/docs/api.md#module_signin)
 // even if this in another domain here, but it works as an example
 async function authenticate(username, password) {
+  // Prefetch cookie jar for session markers to be present at login, mandatory
+  await request('https://www.nespresso.com/fr/en/secure/login')
+
   try {
     const body = await request({
       url: `https://www.nespresso.com/mosaic/fr/en/ecapi/1/authentication/login`,
