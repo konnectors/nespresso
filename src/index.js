@@ -136,20 +136,23 @@ function parseDocuments($) {
     },
     '.my-orders-list .my-orders-list__row-content'
   )
-
+  const vendor = 'nespresso'
   return docs.map(doc => ({
     ...doc,
     // the saveBills function needs a date field
     // even if it is a little artificial here (these are not real bills)
     currency: 'EUR',
-    vendor: 'nespresso',
-    filename: doc.number + '.pdf',
+    vendor: vendor,
+    filename:
+      `${formatDate(doc.date)}_${vendor}_${doc.amount.toFixed(2)}€_${
+        doc.number
+      }` + '.pdf',
     metadata: {
       // it can be interesting that we add the date of import. This is not mandatory but may be
       // usefull for debugging or data migration
       importDate: new Date(),
       // document version, usefull for migration after change of document structure
-      version: 1
+      version: 2
     }
   }))
 }
@@ -166,4 +169,18 @@ function normalizeDate(str) {
     parseInt(parts[1], 10) - 1,
     parseInt(parts[0], 10)
   )
+}
+
+// Convert a Date object to a ISO date string
+function formatDate(date) {
+  let year = date.getFullYear()
+  let month = date.getMonth() + 1
+  let day = date.getDate()
+  if (month < 10) {
+    month = '0' + month
+  }
+  if (day < 10) {
+    day = '0' + day
+  }
+  return `${year}-${month}-${day}`
 }
