@@ -67,8 +67,8 @@ async function start(fields) {
     delete doc.fileurl
   }
 
-  // // here we use the saveBills function even if what we fetch are not bills, but this is the most
-  // // common case in connectors
+  // here we use the saveBills function even if what we fetch are not bills, but this is the most
+  // common case in connectors
   log('info', 'Saving data to Cozy')
   await saveBills(documents, fields.folderPath, {
     // this is a bank identifier which will be used to link bills to bank operations. These
@@ -147,6 +147,7 @@ function parseDocuments($) {
       `${formatDate(doc.date)}_${vendor}_${doc.amount.toFixed(2)}€_${
         doc.number
       }` + '.pdf',
+    shouldReplaceName: `${doc.number}.pdf`,
     metadata: {
       // it can be interesting that we add the date of import. This is not mandatory but may be
       // usefull for debugging or data migration
