@@ -5,7 +5,7 @@
   "language": "node",
   "icon": "nespresso.png",
   "slug": "nespresso",
-  "source": "git://github.com/konnectors/nespresso.git",
+  "source": "git@github.com:konnectors/nespresso.git",
   "editor": "Cozy",
   "vendor_link": "https://www.nespresso.com/mosaic/fr/en/ecapi/1/authentication/login",
   "categories": [
