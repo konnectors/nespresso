@@ -3,7 +3,7 @@
   "name": "Nespresso",
   "type": "konnector",
   "language": "node",
-  "icon": "nespresso.png",
+  "icon": "icon.svg",
   "slug": "nespresso",
   "source": "git@github.com:konnectors/nespresso.git",
   "editor": "Cozy",
