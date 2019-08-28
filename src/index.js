@@ -77,7 +77,8 @@ async function start(fields) {
     identifiers: ['nespresso'],
     contentType: 'application/pdf',
     sourceAccount: this.accountId,
-    sourceAccountIdentifier: fields.login
+    sourceAccountIdentifier: fields.login,
+    keys: ['number']
   })
 }
 
@@ -141,22 +142,13 @@ function parseDocuments($) {
   const vendor = 'nespresso'
   return docs.map(doc => ({
     ...doc,
-    // the saveBills function needs a date field
-    // even if it is a little artificial here (these are not real bills)
     currency: 'EUR',
     vendor: vendor,
     filename:
       `${formatDate(doc.date)}_${vendor}_${doc.amount.toFixed(2)}€_${
         doc.number
       }` + '.pdf',
-    shouldReplaceName: `${doc.number}.pdf`,
-    metadata: {
-      // it can be interesting that we add the date of import. This is not mandatory but may be
-      // usefull for debugging or data migration
-      importDate: new Date(),
-      // document version, usefull for migration after change of document structure
-      version: 2
-    }
+    shouldReplaceName: `${doc.number}.pdf`
   }))
 }
 
