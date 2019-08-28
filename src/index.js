@@ -78,7 +78,8 @@ async function start(fields) {
     contentType: 'application/pdf',
     sourceAccount: this.accountId,
     sourceAccountIdentifier: fields.login,
-    keys: ['number']
+    keys: ['number'],
+    fileIdAttributes: ['number']
   })
 }
 
