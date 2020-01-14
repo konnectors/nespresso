@@ -1,13 +1,12 @@
 language: node_js
 node_js:
-- '12'
+- '8'
 env:
   global:
+  - GH_USER_EMAIL="travis@example.org"
+  - GH_USER_NAME="cozy-bot"
   - DEPLOY_REPOSITORY="git@github.com:konnectors/nespresso.git"
-  # REGISTRY_TOKEN(editor=cozy, app=nespresso)
   - secure: 1GH9fCOCV7Wk8YdCieJ9i7mgniImQlgXWMRbBviBjA3Z6cRiOwbVOW7vbvsepDwPol1LWEWe/xvVR/eQ+/6OFN69wYA/MaA5AHkO2Y5XHoA7m5oftEtVhOC3wYH5+qC6ODVZJD//qqeft8Gw6jv7EGZkK7yLgOu1VsZLWjthJgC/b9WKKu7cBQ+yk+g64wSNjgkPSZkTA4yj/wqSrvOq/+HP5xBIyJWTZxBdMUzZ7QyMsYqzP/3TymjdzmggREWq8cFUtSC9OtCDwnT+3yEv0mGnYfVeiXZv85BAXKfT6BEehAYnnE1PNRky7FzMAoEjG1ImWThta8tf8DGGB0vaSIVLF/V5OmYmxWHcRb27vFsvbsjS1jN2jXck8aEnBanhLTSvs7NxWISDOiRPrFlLBaWhhd7V4JEzB00sG8ItNQZbSL8THgEtFsog8iDccF6XDDG9JWcDilWM6/DN62XUygHp4A9EBGGfyykvn21ljsLMb/yByAOjF7hiS9OIYI8D/3/7tR4JC9xdbnkLRTmtLCXYRpNUcDS76Amv9FpKZSfQYzICUueUd/2CLUtDklhQ3dhMcCjxW8jvvugUuKiC+zR6NoSVg9skJ/k+L6Nk9/XhgCsrxo849hbOkwKYsj4RDA+BpCHs11qbaMgC0IYWtjvFVeB13ybaSJaVY/ux5ZY=
-  # MATTERMOST_HOOK_URL
-  - secure: awpymRPRfRvhWNg2yDAHh+6u0qr51daMDN76lgqxOyr6LKrzKbOBxM8VcqREKg8yq2wvANN597HAhpxrL0nEEhPrVxDZF1Szk8qH6oVJolvTVfm42DVYhrkd/b3R89veI28reKXRY+BbYBhg/fLWmgei42uk62o/4UrMT+l9Tvya0TUOEaULTrODZCXN2Bh+WQGOUhQUm1KaSEiUJr8XaZeSWmrGcNt7SPCsw8bPQAUO6KypXdYDLr2IADfcfttll7RyyymSh5dYZNbgFqvEebeo7mkMVooxpeoka/8Li6+CJc0TL04NJI5hGbQtVb6WqtydAFwmmnVvwF9JWj/az1361V4KFARKaPXOVVyCfxpXT4NtPgm0d0Qfp8V/UkVSB7JGlebLh9k7qxQ8h+ga6KXColo/rQh3VvIRof1HrNW7q5/o2g9XyTycvU+LOFfZh8C3ZnHyyHx8rwFYgeMMQJRbd3tnG28KVYTa+6VzeVH0+ncXeGxeJISsVUw69vgI9tDrMJaeIf5UCKMN7+v7a9Mqya3mO0DNIG01Vgah1oROZJTz40Zu4OoVWAKdY796p58p1clwKT8ZSn9CmwcKwdiRo5Ea05MiCLZ3r/0yykdLowPT7EQHLAnkAIJrrtUlkFM7ECfmbi9Eig7fcvkR3674go6f4l6vTBojbDvPYqI=
 cache:
   yarn: true
   directories:
@@ -19,6 +18,7 @@ branches:
 script:
 - yarn lint
 - yarn build
+- yarn run check
 deploy:
 - provider: script
   skip-cleanup: true
@@ -27,7 +27,7 @@ deploy:
     branch: master
 - provider: script
   skip-cleanup: true
-  script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish --postpublish mattermost
+  script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish
   on:
     tags: true
 before_install:
