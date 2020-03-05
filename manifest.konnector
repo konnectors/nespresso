@@ -96,5 +96,6 @@
       }
     }
   },
+  "banksTransactionRegExp": "\\bnespresso\\b",
   "manifest_version": "2"
 }
