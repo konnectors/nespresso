@@ -25,6 +25,10 @@
       }
     }
   },
+  "time_interval": [
+    0,
+    24
+  ],
   "data_types": [
     "bill"
   ],
@@ -92,5 +96,6 @@
       }
     }
   },
+  "banksTransactionRegExp": "\\bnespresso\\b",
   "manifest_version": "2"
 }
