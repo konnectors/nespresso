@@ -6,7 +6,6 @@ process.env.SENTRY_DSN =
 
 const secrets = JSON.parse(process.env.COZY_PARAMETERS || '{}').secret
 if (secrets && secrets.proxyUrl) {
-  process.env.http_proxy = secrets.proxyUrl
   process.env.https_proxy = secrets.proxyUrl
 }
 
