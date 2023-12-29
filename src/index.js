@@ -1,9 +1,3 @@
-// Force sentry DSN into environment variables
-// In the future, will be set by the stack
-process.env.SENTRY_DSN =
-  process.env.SENTRY_DSN ||
-  'https://1f6a1423e0d848488ebf4cb47d017aa6:2cbb42f7f8c6465bb620509006769435@sentry.cozycloud.cc/76'
-
 const secrets = JSON.parse(process.env.COZY_PARAMETERS || '{}').secret
 if (secrets && secrets.proxyUrl) {
   process.env.https_proxy = secrets.proxyUrl
