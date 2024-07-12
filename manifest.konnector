@@ -9,7 +9,7 @@
   "editor": "Cozy",
   "vendor_link": "https://www.nespresso.com/mosaic/fr/en/ecapi/1/authentication/login",
   "categories": [
-    "online_services"
+    "others"
   ],
   "fields": {
     "login": {
